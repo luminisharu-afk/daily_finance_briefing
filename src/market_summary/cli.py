@@ -21,13 +21,23 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--data-dir", type=Path)
     parser.add_argument("--as-of", type=date.fromisoformat, help="Run date in YYYY-MM-DD format.")
+    parser.add_argument(
+        "--target-date",
+        type=date.fromisoformat,
+        help="Market date to summarize in YYYY-MM-DD format.",
+    )
     args = parser.parse_args(argv)
 
     config = load_config(args.config)
     output_dir = args.output_dir or ROOT / config.output_dir
     data_dir = args.data_dir or ROOT / config.data_dir
 
-    report = build_report(config, FinanceDataReaderClient(), as_of=args.as_of)
+    report = build_report(
+        config,
+        FinanceDataReaderClient(),
+        as_of=args.as_of,
+        target_date=args.target_date,
+    )
     html = render_html(report, args.template)
 
     output_dir.mkdir(parents=True, exist_ok=True)
