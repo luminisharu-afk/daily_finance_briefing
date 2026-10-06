@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>전일 시장 요약</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #262626;
+      --muted: #767676;
+      --line: #d8d8d8;
+      --soft-line: #ebebeb;
+      --panel: #f8f8f8;
+      --up: #c9655c;
+      --down: #4b8faf;
+      --flat: #727272;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .report {
+      width: min(720px, calc(100vw - 36px));
+      margin: 28px auto 40px;
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      margin: -10px 0 28px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    section {
+      margin-top: 32px;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+      border-top: 2px solid #bfbfbf;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .market-item {
+      min-width: 0;
+      border-right: 1px solid var(--soft-line);
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .market-name {
+      display: flex;
+      min-height: 58px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      background: var(--panel);
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+      word-break: keep-all;
+    }
+
+    .market-value {
+      display: flex;
+      min-height: 60px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      color: var(--flat);
+      font-size: 18px;
+      font-weight: 800;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .market-value.up {
+      color: var(--up);
+    }
+
+    .market-value.down {
+      color: var(--down);
+    }
+
+    .value {
+      font-size: 20px;
+    }
+
+    .missing {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .footnote {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 520px) {
+      .report {
+        width: min(100% - 28px, 720px);
+        margin-top: 22px;
+      }
+
+      .market-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .market-item {
+        border-right: 0;
+      }
+
+      .market-name {
+        min-height: 48px;
+        font-size: 19px;
+      }
+
+      .market-value {
+        min-height: 52px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="report">
+    <h1>전일 시장 요약</h1>
+    <p class="meta">생성일 2026-10-06 · 조회 기준 2026-10-05 · Asia/Seoul</p>
+
+    
+    <section aria-labelledby="section-1">
+      <h2 id="section-1">국내</h2>
+      <div class="market-grid" style="--columns: 2">
+        
+        <article class="market-item" title="KS11 · 2026-09-17">
+          <div class="market-name">코스피</div>
+          <div class="market-value up">
+            
+            <span class="value">6,724.34</span>
+            <span aria-hidden="true">▲</span>
+            <span>0.09%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="KQ11 · 2026-09-17">
+          <div class="market-name">코스닥</div>
+          <div class="market-value up">
+            
+            <span class="value">821.67</span>
+            <span aria-hidden="true">▲</span>
+            <span>0.70%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+    <section aria-labelledby="section-2">
+      <h2 id="section-2">해외</h2>
+      <div class="market-grid" style="--columns: 2">
+        
+        <article class="market-item" title="DJI · 2026-10-05">
+          <div class="market-name">다우 산업</div>
+          <div class="market-value up">
+            
+            <span class="value">51,267.90</span>
+            <span aria-hidden="true">▲</span>
+            <span>0.18%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="IXIC · 2026-10-05">
+          <div class="market-name">나스닥 종합</div>
+          <div class="market-value up">
+            
+            <span class="value">27,477.31</span>
+            <span aria-hidden="true">▲</span>
+            <span>1.05%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="SSEC · 2026-09-30">
+          <div class="market-name">상해 종합</div>
+          <div class="market-value up">
+            
+            <span class="value">3,842.20</span>
+            <span aria-hidden="true">▲</span>
+            <span>0.31%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="N225 · 2026-10-05">
+          <div class="market-name">니케이225</div>
+          <div class="market-value up">
+            
+            <span class="value">69,946.86</span>
+            <span aria-hidden="true">▲</span>
+            <span>2.40%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+    <section aria-labelledby="section-3">
+      <h2 id="section-3">환율</h2>
+      <div class="market-grid" style="--columns: 2">
+        
+        <article class="market-item" title="USD/KRW · 2026-10-04">
+          <div class="market-name">원/달러</div>
+          <div class="market-value down">
+            
+            <span class="value">1,342.56</span>
+            <span aria-hidden="true">▼</span>
+            <span>1.33%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="USD/CNY · 2026-10-04">
+          <div class="market-name">중국 위안/달러</div>
+          <div class="market-value flat">
+            
+            <span class="value">6.705</span>
+            <span aria-hidden="true">■</span>
+            <span>0.00%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+    <section aria-labelledby="section-4">
+      <h2 id="section-4">상품</h2>
+      <div class="market-grid" style="--columns: 1">
+        
+        <article class="market-item" title="GC=F · 2026-10-05">
+          <div class="market-name">금</div>
+          <div class="market-value down">
+            
+            <span class="value">4,156.80</span>
+            <span aria-hidden="true">▼</span>
+            <span>0.13%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="SI=F · 2026-10-05">
+          <div class="market-name">은</div>
+          <div class="market-value up">
+            
+            <span class="value">60.87</span>
+            <span aria-hidden="true">▲</span>
+            <span>1.49%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="CL=F · 2026-10-05">
+          <div class="market-name">WTI</div>
+          <div class="market-value down">
+            
+            <span class="value">89.43</span>
+            <span aria-hidden="true">▼</span>
+            <span>1.84%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+
+    <p class="footnote">
+      수치는 FinanceDataReader로 조회한 기준일 이전의 마지막 두 거래일 종가를 비교해 계산했습니다.
+      휴장일이나 데이터 지연이 있으면 실제 거래일은 항목별로 달라질 수 있습니다.
+    </p>
+  </main>
+</body>
+</html>
