@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy-pages.outputs.page_url }}
+      url: ${{ steps.deploy_pages.outputs.page_url }}
     env:
       AS_OF: ${{ github.event.inputs.as_of || '' }}
       TARGET_DATE: ${{ github.event.inputs.target_date || '' }}
@@ -106,16 +106,58 @@ jobs:
             fi
           fi
 
-      - name: Configure Pages
+      - name: Check Pages configuration
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(curl -L -sS -o /tmp/pages.json -w "%{http_code}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages")
+
+          if [ "$status" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::GitHub Pages is not enabled or not accessible (HTTP $status). Enable Pages with Source = GitHub Actions in repository settings to publish rendered HTML."
+          fi
+
+      - name: Detect Pages setup token
+        id: pages_token
+        env:
+          PAGES_TOKEN: ${{ secrets.PAGES_TOKEN }}
+        run: |
+          if [ -n "$PAGES_TOKEN" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure existing Pages
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Enable and configure Pages
+        if: steps.pages.outputs.enabled != 'true' && steps.pages_token.outputs.available == 'true'
         uses: actions/configure-pages@v5
         with:
+          token: ${{ secrets.PAGES_TOKEN }}
           enablement: true
 
+      - name: Skip Pages deployment
+        if: steps.pages.outputs.enabled != 'true' && steps.pages_token.outputs.available != 'true'
+        run: |
+          echo "::notice::Generated files were committed to output/, but Pages deployment was skipped because the repository does not have Pages enabled. In Settings > Pages, set Source to GitHub Actions, then run this workflow again."
+
       - name: Upload Pages artifact
+        if: steps.pages.outputs.enabled == 'true' || steps.pages_token.outputs.available == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: output/reports
 
       - name: Deploy Pages
-        id: deploy-pages
+        if: steps.pages.outputs.enabled == 'true' || steps.pages_token.outputs.available == 'true'
+        id: deploy_pages
         uses: actions/deploy-pages@v4
