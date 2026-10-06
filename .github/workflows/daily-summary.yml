@@ -17,6 +17,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  pages: write
 
 concurrency:
   group: daily-market-summary
@@ -25,6 +27,9 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy-pages.outputs.page_url }}
     env:
       AS_OF: ${{ github.event.inputs.as_of || '' }}
       TARGET_DATE: ${{ github.event.inputs.target_date || '' }}
@@ -67,3 +72,15 @@ jobs:
             git commit -m "Add daily market summary"
             git push
           fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output/reports
+
+      - name: Deploy Pages
+        id: deploy-pages
+        uses: actions/deploy-pages@v4

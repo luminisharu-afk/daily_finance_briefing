@@ -34,7 +34,11 @@ python -m market_summary --target-date 2026-10-05
 
 - `output/reports/YYYY-MM-DD.html`
 - `output/reports/latest.html`
+- `output/reports/index.html`
 - `output/data/YYYY-MM-DD.json`
+
+GitHub 저장소 화면에서 HTML 파일을 클릭하면 소스 코드가 보입니다.
+브리핑 화면으로 보려면 GitHub Pages 배포 URL을 열거나, 로컬에서 HTML 파일을 브라우저로 열어야 합니다.
 
 ## 설정
 
@@ -57,4 +61,5 @@ precision = 2
 ## 자동 실행
 
 `.github/workflows/daily-summary.yml`이 매일 시장 요약 리포트를 생성하고, 변경된 `output/` 파일을 저장소에 커밋합니다.
+같은 워크플로가 `output/reports`를 GitHub Pages로 배포하므로 최신 브리핑은 Pages URL에서 렌더링된 HTML로 볼 수 있습니다.
 GitHub Actions에서 수동 실행할 때는 `target_date` 입력으로 요약할 시장 기준일을 직접 지정할 수 있습니다.
