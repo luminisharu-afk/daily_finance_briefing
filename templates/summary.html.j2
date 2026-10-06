@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ report["title"] }}</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #262626;
+      --muted: #767676;
+      --line: #d8d8d8;
+      --soft-line: #ebebeb;
+      --panel: #f8f8f8;
+      --up: #c9655c;
+      --down: #4b8faf;
+      --flat: #727272;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .report {
+      width: min(720px, calc(100vw - 36px));
+      margin: 28px auto 40px;
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      margin: -10px 0 28px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    section {
+      margin-top: 32px;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+      border-top: 2px solid #bfbfbf;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .market-item {
+      min-width: 0;
+      border-right: 1px solid var(--soft-line);
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .market-name {
+      display: flex;
+      min-height: 58px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      background: var(--panel);
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+      word-break: keep-all;
+    }
+
+    .market-value {
+      display: flex;
+      min-height: 60px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      color: var(--flat);
+      font-size: 18px;
+      font-weight: 800;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .market-value.up {
+      color: var(--up);
+    }
+
+    .market-value.down {
+      color: var(--down);
+    }
+
+    .value {
+      font-size: 20px;
+    }
+
+    .missing {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .footnote {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 520px) {
+      .report {
+        width: min(100% - 28px, 720px);
+        margin-top: 22px;
+      }
+
+      .market-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .market-item {
+        border-right: 0;
+      }
+
+      .market-name {
+        min-height: 48px;
+        font-size: 19px;
+      }
+
+      .market-value {
+        min-height: 52px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="report">
+    <h1>{{ report["title"] }}</h1>
+    <p class="meta">생성일 {{ report["as_of_date"] }} · 조회 기준 {{ report["target_date"] }} · {{ report["timezone"] }}</p>
+
+    {% for section in report["sections"] %}
+    <section aria-labelledby="section-{{ loop.index }}">
+      <h2 id="section-{{ loop.index }}">{{ section["name"] }}</h2>
+      <div class="market-grid" style="--columns: {{ section["columns"] }}">
+        {% for item in section["items"] %}
+        <article class="market-item" title="{{ item["symbol"] }}{% if item["trade_date"] %} · {{ item["trade_date"] }}{% endif %}">
+          <div class="market-name">{{ item["label"] }}</div>
+          <div class="market-value {{ item["direction"] }}">
+            {% if item["status"] == "ok" %}
+            <span class="value">{{ item["value_text"] }}</span>
+            <span aria-hidden="true">{{ item["arrow"] }}</span>
+            <span>{{ item["percent_text"] }}</span>
+            {% else %}
+            <span class="missing">데이터 없음</span>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+
+    <p class="footnote">
+      수치는 FinanceDataReader로 조회한 기준일 이전의 마지막 두 거래일 종가를 비교해 계산했습니다.
+      휴장일이나 데이터 지연이 있으면 실제 거래일은 항목별로 달라질 수 있습니다.
+    </p>
+  </main>
+</body>
+</html>

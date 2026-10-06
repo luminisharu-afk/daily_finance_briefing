@@ -1,0 +1,61 @@
+name: Daily market summary
+
+on:
+  schedule:
+    - cron: "0 10 * * 1-6"
+      timezone: "Asia/Seoul"
+  workflow_dispatch:
+    inputs:
+      as_of:
+        description: "Optional report run date in YYYY-MM-DD format"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-market-summary
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    env:
+      AS_OF: ${{ github.event.inputs.as_of || '' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: python -m pip install -e .
+
+      - name: Run tests
+        run: python -m unittest discover -s tests
+
+      - name: Generate report
+        run: |
+          if [ -n "$AS_OF" ]; then
+            python -m market_summary --as-of "$AS_OF"
+          else
+            python -m market_summary
+          fi
+
+      - name: Commit generated report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data reports
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+          else
+            git commit -m "Add daily market summary"
+            git push
+          fi
