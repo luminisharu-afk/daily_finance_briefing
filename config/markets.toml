@@ -17,3 +17,27 @@ precision = 2
 label = "코스닥"
 symbol = "KQ11"
 precision = 2
+
+[[sections]]
+name = "해외"
+columns = 2
+
+[[sections.items]]
+label = "다우 산업"
+symbol = "DJI"
+precision = 2
+
+[[sections.items]]
+label = "나스닥 종합"
+symbol = "IXIC"
+precision = 2
+
+[[sections.items]]
+label = "상해 종합"
+symbol = "SSEC"
+precision = 2
+
+[[sections.items]]
+label = "니케이225"
+symbol = "N225"
+precision = 2

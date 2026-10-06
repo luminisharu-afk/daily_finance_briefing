@@ -1,4 +1,4 @@
-name: Daily KRX market summary
+name: Daily market summary
 
 on:
   schedule:
@@ -64,6 +64,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No report changes to commit."
           else
-            git commit -m "Add daily KRX market summary"
+            git commit -m "Add daily market summary"
             git push
           fi
