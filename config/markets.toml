@@ -41,3 +41,17 @@ precision = 2
 label = "니케이225"
 symbol = "N225"
 precision = 2
+
+[[sections]]
+name = "환율"
+columns = 2
+
+[[sections.items]]
+label = "원/달러"
+symbol = "USD/KRW"
+precision = 2
+
+[[sections.items]]
+label = "중국 위안/달러"
+symbol = "USD/CNY"
+precision = 3
