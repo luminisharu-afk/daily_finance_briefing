@@ -37,6 +37,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -70,7 +72,26 @@ jobs:
             echo "No report changes to commit."
           else
             git commit -m "Add daily market summary"
-            git push
+            pushed=false
+            for attempt in 1 2 3; do
+              if git push; then
+                pushed=true
+                break
+              fi
+
+              if [ "$attempt" -eq 3 ]; then
+                break
+              fi
+
+              echo "Push failed because remote moved; rebasing and retrying..."
+              git fetch origin main
+              git rebase origin/main
+            done
+
+            if [ "$pushed" != "true" ]; then
+              echo "Failed to push generated report after retries."
+              exit 1
+            fi
           fi
 
       - name: Configure Pages
