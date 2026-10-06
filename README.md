@@ -4,8 +4,8 @@
 
 ## 기능
 
-- FinanceDataReader로 국내 지수, 주요 해외 지수, 환율을 조회합니다.
-- 현재 조회 항목은 코스피(`KS11`), 코스닥(`KQ11`), 다우 산업(`DJI`), 나스닥 종합(`IXIC`), 상해 종합(`SSEC`), 니케이225(`N225`), 원/달러(`USD/KRW`), 중국 위안/달러(`USD/CNY`)입니다.
+- FinanceDataReader로 국내 지수, 주요 해외 지수, 환율, 상품 가격을 조회합니다.
+- 현재 조회 항목은 코스피(`KS11`), 코스닥(`KQ11`), 다우 산업(`DJI`), 나스닥 종합(`IXIC`), 상해 종합(`SSEC`), 니케이225(`N225`), 원/달러(`USD/KRW`), 중국 위안/달러(`USD/CNY`), 금(`GC=F`), 은(`SI=F`), WTI(`CL=F`)입니다.
 - 기준일 이전의 마지막 두 거래일 종가를 비교해 등락률을 계산합니다.
 - 스크린샷과 비슷한 섹션형 HTML 리포트를 생성합니다.
 - GitHub Actions로 매주 월요일부터 토요일까지 오전 10시(Asia/Seoul)에 자동 실행합니다.
@@ -51,9 +51,9 @@ precision = 2
 ```
 
 `symbol`은 FinanceDataReader의 `DataReader`에서 지원하는 심볼을 사용합니다.
-현재 범위는 국내 지수 2개, 해외 지수 4개, 환율 2개입니다.
+현재 범위는 국내 지수 2개, 해외 지수 4개, 환율 2개, 상품 3개입니다.
 
 ## 자동 실행
 
-`.github/workflows/daily-summary.yml`이 매일 시장 지수 리포트를 생성하고, 변경된 `data/`와 `reports/` 파일을 저장소에 커밋합니다.
+`.github/workflows/daily-summary.yml`이 매일 시장 요약 리포트를 생성하고, 변경된 `data/`와 `reports/` 파일을 저장소에 커밋합니다.
 GitHub Actions에서 수동 실행할 때는 `target_date` 입력으로 요약할 시장 기준일을 직접 지정할 수 있습니다.
