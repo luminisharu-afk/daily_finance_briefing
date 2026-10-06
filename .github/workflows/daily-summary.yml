@@ -68,6 +68,10 @@ jobs:
           fi
           python -m market_summary "${args[@]}"
 
+      - name: Reconcile generated files with latest main
+        run: |
+          git pull --rebase --autostash origin main
+
       - name: Commit generated report
         run: |
           git config user.name "github-actions[bot]"
