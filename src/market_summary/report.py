@@ -48,12 +48,22 @@ class MarketReport:
         return asdict(self)
 
 
-def build_report(config: AppConfig, client, as_of: date | None = None) -> MarketReport:
+def build_report(
+    config: AppConfig,
+    client,
+    as_of: date | None = None,
+    target_date: date | None = None,
+) -> MarketReport:
     zone = ZoneInfo(config.timezone)
-    today = as_of or datetime.now(zone).date()
-    target_date = today - timedelta(days=1)
-    start_date = target_date - timedelta(days=config.lookback_days)
-    end_date = target_date + timedelta(days=1)
+    resolved_target_date = target_date
+    if resolved_target_date is None:
+        today = as_of or datetime.now(zone).date()
+        resolved_target_date = today - timedelta(days=1)
+    else:
+        today = as_of or resolved_target_date + timedelta(days=1)
+
+    start_date = resolved_target_date - timedelta(days=config.lookback_days)
+    end_date = resolved_target_date + timedelta(days=1)
 
     sections = []
     for section in config.sections:
@@ -61,7 +71,7 @@ def build_report(config: AppConfig, client, as_of: date | None = None) -> Market
         for item in section.items:
             try:
                 frame = client.read(item.symbol, start_date, end_date)
-                snapshots.append(snapshot_from_frame(item, frame, target_date))
+                snapshots.append(snapshot_from_frame(item, frame, resolved_target_date))
             except Exception as exc:  # noqa: BLE001 - one failed symbol should not stop the report
                 snapshots.append(error_snapshot(item, exc))
 
@@ -77,7 +87,7 @@ def build_report(config: AppConfig, client, as_of: date | None = None) -> Market
         title=config.title,
         generated_at=datetime.now(zone).isoformat(timespec="seconds"),
         as_of_date=today.isoformat(),
-        target_date=target_date.isoformat(),
+        target_date=resolved_target_date.isoformat(),
         timezone=config.timezone,
         sections=tuple(sections),
     )

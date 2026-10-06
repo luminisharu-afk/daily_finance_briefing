@@ -22,6 +22,12 @@ python -m market_summary
 python -m market_summary --as-of 2026-10-06
 ```
 
+특정 시장 기준일을 직접 지정하려면 다음처럼 실행합니다.
+
+```bash
+python -m market_summary --target-date 2026-10-05
+```
+
 생성 결과는 다음 위치에 저장됩니다.
 
 - `reports/YYYY-MM-DD.html`
@@ -49,3 +55,4 @@ precision = 2
 ## 자동 실행
 
 `.github/workflows/daily-summary.yml`이 매일 국내 지수 리포트를 생성하고, 변경된 `data/`와 `reports/` 파일을 저장소에 커밋합니다.
+GitHub Actions에서 수동 실행할 때는 `target_date` 입력으로 요약할 시장 기준일을 직접 지정할 수 있습니다.

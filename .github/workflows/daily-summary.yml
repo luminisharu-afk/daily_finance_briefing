@@ -10,6 +10,10 @@ on:
         description: "Optional report run date in YYYY-MM-DD format"
         required: false
         type: string
+      target_date:
+        description: "Optional market date to summarize in YYYY-MM-DD format"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -23,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AS_OF: ${{ github.event.inputs.as_of || '' }}
+      TARGET_DATE: ${{ github.event.inputs.target_date || '' }}
 
     steps:
       - name: Check out repository
@@ -42,11 +47,14 @@ jobs:
 
       - name: Generate report
         run: |
+          args=()
           if [ -n "$AS_OF" ]; then
-            python -m market_summary --as-of "$AS_OF"
-          else
-            python -m market_summary
+            args+=(--as-of "$AS_OF")
           fi
+          if [ -n "$TARGET_DATE" ]; then
+            args+=(--target-date "$TARGET_DATE")
+          fi
+          python -m market_summary "${args[@]}"
 
       - name: Commit generated report
         run: |
