@@ -22,7 +22,7 @@ permissions:
 
 concurrency:
   group: daily-market-summary
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   generate:
@@ -39,6 +39,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Sync latest main
+        run: |
+          git fetch origin main
+          git rebase origin/main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -72,9 +77,12 @@ jobs:
             echo "No report changes to commit."
           else
             git commit -m "Add daily market summary"
+            git fetch origin main
+            git rebase origin/main
+
             pushed=false
             for attempt in 1 2 3; do
-              if git push; then
+              if git push origin HEAD:main; then
                 pushed=true
                 break
               fi
