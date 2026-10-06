@@ -1,8 +1,8 @@
 title = "전일 시장 요약"
 timezone = "Asia/Seoul"
 lookback_days = 30
-output_dir = "reports"
-data_dir = "data"
+output_dir = "output/reports"
+data_dir = "output/data"
 
 [[sections]]
 name = "국내"
