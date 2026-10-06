@@ -49,6 +49,7 @@ def main(argv: list[str] | None = None) -> int:
 
     html_path.write_text(html, encoding="utf-8")
     (output_dir / "latest.html").write_text(html, encoding="utf-8")
+    (output_dir / "index.html").write_text(html, encoding="utf-8")
     json_path.write_text(
         json.dumps(report.to_dict(), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
