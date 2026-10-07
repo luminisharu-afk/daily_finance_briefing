@@ -39,6 +39,7 @@ python -m market_summary --target-date 2026-10-05
 
 GitHub 저장소 화면에서 HTML 파일을 클릭하면 소스 코드가 보입니다.
 브리핑 화면으로 보려면 GitHub Pages 배포 URL을 열거나, 로컬에서 HTML 파일을 브라우저로 열어야 합니다.
+Pages 배포가 활성화되면 최신 브리핑은 `https://luminisharu-afk.github.io/daily_finance_briefing/`에서 볼 수 있습니다.
 
 ## 설정
 
@@ -68,3 +69,4 @@ GitHub Pages 배포를 사용하려면 저장소에서 Pages가 한 번은 활�
 `Settings > Pages > Build and deployment > Source`를 `GitHub Actions`로 설정하면 됩니다.
 Pages가 꺼져 있으면 워크플로는 `output/` 파일 커밋까지만 완료하고 Pages 배포는 건너뜁니다.
 워크플로에서 Pages를 자동으로 켜고 싶다면 `PAGES_TOKEN` 저장소 secret에 Pages 생성 권한이 있는 토큰을 등록할 수 있습니다.
+`output/reports`가 변경되면 `.github/workflows/pages-deploy.yml`이 Pages 배포를 다시 실행합니다.
