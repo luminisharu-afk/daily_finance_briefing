@@ -63,3 +63,8 @@ precision = 2
 `.github/workflows/daily-summary.yml`이 매일 시장 요약 리포트를 생성하고, 변경된 `output/` 파일을 저장소에 커밋합니다.
 같은 워크플로가 `output/reports`를 GitHub Pages로 배포하므로 최신 브리핑은 Pages URL에서 렌더링된 HTML로 볼 수 있습니다.
 GitHub Actions에서 수동 실행할 때는 `target_date` 입력으로 요약할 시장 기준일을 직접 지정할 수 있습니다.
+
+GitHub Pages 배포를 사용하려면 저장소에서 Pages가 한 번은 활성화되어 있어야 합니다.
+`Settings > Pages > Build and deployment > Source`를 `GitHub Actions`로 설정하면 됩니다.
+Pages가 꺼져 있으면 워크플로는 `output/` 파일 커밋까지만 완료하고 Pages 배포는 건너뜁니다.
+워크플로에서 Pages를 자동으로 켜고 싶다면 `PAGES_TOKEN` 저장소 secret에 Pages 생성 권한이 있는 토큰을 등록할 수 있습니다.
