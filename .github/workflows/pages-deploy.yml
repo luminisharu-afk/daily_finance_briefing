@@ -1,0 +1,88 @@
+name: Deploy market summary pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "output/reports/**"
+      - ".github/workflows/pages-deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy_pages.outputs.page_url }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check report entrypoint
+        run: |
+          test -f output/reports/index.html
+
+      - name: Check Pages configuration
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(curl -L -sS -o /tmp/pages.json -w "%{http_code}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages")
+
+          if [ "$status" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Detect Pages setup token
+        id: pages_token
+        env:
+          PAGES_TOKEN: ${{ secrets.PAGES_TOKEN }}
+        run: |
+          if [ -n "$PAGES_TOKEN" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Require Pages setup
+        if: steps.pages.outputs.enabled != 'true' && steps.pages_token.outputs.available != 'true'
+        run: |
+          echo "::error::GitHub Pages is not enabled. In repository Settings > Pages, set Build and deployment Source to GitHub Actions, then run this workflow again. Alternatively add a PAGES_TOKEN secret with Pages creation permission."
+          exit 1
+
+      - name: Configure existing Pages
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Enable and configure Pages
+        if: steps.pages.outputs.enabled != 'true' && steps.pages_token.outputs.available == 'true'
+        uses: actions/configure-pages@v5
+        with:
+          token: ${{ secrets.PAGES_TOKEN }}
+          enablement: true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output/reports
+
+      - name: Deploy Pages
+        id: deploy_pages
+        uses: actions/deploy-pages@v4
