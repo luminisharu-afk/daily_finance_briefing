@@ -1,0 +1,209 @@
+{
+  "title": "전일 시장 요약",
+  "generated_at": "2026-10-20T14:40:21+09:00",
+  "as_of_date": "2026-10-20",
+  "target_date": "2026-10-19",
+  "timezone": "Asia/Seoul",
+  "sections": [
+    {
+      "name": "국내",
+      "columns": 2,
+      "items": [
+        {
+          "label": "코스피",
+          "symbol": "KS11",
+          "status": "ok",
+          "value": 5768.01,
+          "previous_value": 5668.05,
+          "change": 99.96000000000004,
+          "change_percent": 1.7635694815677356,
+          "direction": "up",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "5,768.01",
+          "percent_text": "1.76%",
+          "arrow": "▲",
+          "error": null
+        },
+        {
+          "label": "코스닥",
+          "symbol": "KQ11",
+          "status": "ok",
+          "value": 808.89,
+          "previous_value": 794.78,
+          "change": 14.110000000000014,
+          "change_percent": 1.7753340547069647,
+          "direction": "up",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "808.89",
+          "percent_text": "1.78%",
+          "arrow": "▲",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "해외",
+      "columns": 2,
+      "items": [
+        {
+          "label": "다우 산업",
+          "symbol": "DJI",
+          "status": "ok",
+          "value": 51966.03125,
+          "previous_value": 52002.41015625,
+          "change": -36.37890625,
+          "change_percent": -0.06995619268548024,
+          "direction": "down",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "51,966.03",
+          "percent_text": "0.07%",
+          "arrow": "▼",
+          "error": null
+        },
+        {
+          "label": "나스닥 종합",
+          "symbol": "IXIC",
+          "status": "ok",
+          "value": 26430.890625,
+          "previous_value": 26140.029296875,
+          "change": 290.861328125,
+          "change_percent": 1.112704675353107,
+          "direction": "up",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "26,430.89",
+          "percent_text": "1.11%",
+          "arrow": "▲",
+          "error": null
+        },
+        {
+          "label": "상해 종합",
+          "symbol": "SSEC",
+          "status": "ok",
+          "value": 3730.919921875,
+          "previous_value": 3716.283935546875,
+          "change": 14.635986328125,
+          "change_percent": 0.39383390994776674,
+          "direction": "up",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "3,730.92",
+          "percent_text": "0.39%",
+          "arrow": "▲",
+          "error": null
+        },
+        {
+          "label": "니케이225",
+          "symbol": "N225",
+          "status": "ok",
+          "value": 64916.69921875,
+          "previous_value": 65324.2890625,
+          "change": -407.58984375,
+          "change_percent": -0.6239483806092895,
+          "direction": "down",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "64,916.70",
+          "percent_text": "0.62%",
+          "arrow": "▼",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "환율",
+      "columns": 2,
+      "items": [
+        {
+          "label": "원/달러",
+          "symbol": "USD/KRW",
+          "status": "ok",
+          "value": 1333.4300537109375,
+          "previous_value": 1340.949951171875,
+          "change": -7.5198974609375,
+          "change_percent": -0.5607888239501971,
+          "direction": "down",
+          "trade_date": "2026-10-18",
+          "previous_trade_date": "2026-10-15",
+          "value_text": "1,333.43",
+          "percent_text": "0.56%",
+          "arrow": "▼",
+          "error": null
+        },
+        {
+          "label": "중국 위안/달러",
+          "symbol": "USD/CNY",
+          "status": "ok",
+          "value": 6.690899848937988,
+          "previous_value": 6.690899848937988,
+          "change": 0.0,
+          "change_percent": 0.0,
+          "direction": "flat",
+          "trade_date": "2026-10-18",
+          "previous_trade_date": "2026-10-15",
+          "value_text": "6.691",
+          "percent_text": "0.00%",
+          "arrow": "■",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "상품",
+      "columns": 1,
+      "items": [
+        {
+          "label": "금",
+          "symbol": "GC=F",
+          "status": "ok",
+          "value": 4160.10009765625,
+          "previous_value": 4181.10009765625,
+          "change": -21.0,
+          "change_percent": -0.5022601590373721,
+          "direction": "down",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "4,160.10",
+          "percent_text": "0.50%",
+          "arrow": "▼",
+          "error": null
+        },
+        {
+          "label": "은",
+          "symbol": "SI=F",
+          "status": "ok",
+          "value": 56.9739990234375,
+          "previous_value": 56.994998931884766,
+          "change": -0.020999908447265625,
+          "change_percent": -0.036845177367864856,
+          "direction": "down",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "56.97",
+          "percent_text": "0.04%",
+          "arrow": "▼",
+          "error": null
+        },
+        {
+          "label": "WTI",
+          "symbol": "CL=F",
+          "status": "ok",
+          "value": 103.66000366210938,
+          "previous_value": 101.41000366210938,
+          "change": 2.25,
+          "change_percent": 2.2187160228263414,
+          "direction": "up",
+          "trade_date": "2026-10-19",
+          "previous_trade_date": "2026-10-16",
+          "value_text": "103.66",
+          "percent_text": "2.22%",
+          "arrow": "▲",
+          "error": null
+        }
+      ]
+    }
+  ]
+}
