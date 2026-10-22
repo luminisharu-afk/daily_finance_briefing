@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>전일 시장 요약</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #303030;
+      --muted: #747474;
+      --rule: #acacac;
+      --line: #d9d9d9;
+      --soft-line: #ededed;
+      --panel: #fafafa;
+      --up: #cf625e;
+      --down: #4c94b3;
+      --flat: #727272;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .report {
+      width: min(650px, calc(100vw - 40px));
+      margin: 28px auto 44px;
+    }
+
+    h1 {
+      margin: 0 0 34px;
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .market-section {
+      margin-top: 34px;
+    }
+
+    h2 {
+      margin: 0 0 11px;
+      font-size: 25px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .market-table {
+      border-top: 2px solid var(--rule);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .market-table.grid {
+      display: grid;
+      grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    }
+
+    .market-item {
+      min-width: 0;
+    }
+
+    .market-table.grid .market-item {
+      display: grid;
+      grid-template-rows: 58px 60px;
+      border-right: 1px solid var(--soft-line);
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .market-table.grid.columns-2 .market-item:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .market-table.grid.columns-2 .market-item:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    .market-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--panel);
+      color: var(--text);
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+      word-break: keep-all;
+      line-height: 1.25;
+    }
+
+    .market-table.grid .market-name {
+      padding: 0 12px;
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .market-value {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--flat);
+      font-size: 18px;
+      font-weight: 800;
+      text-align: center;
+      white-space: normal;
+      line-height: 1.25;
+    }
+
+    .market-value.up {
+      color: var(--up);
+    }
+
+    .market-value.down {
+      color: var(--down);
+    }
+
+    .value {
+      font-size: 20px;
+    }
+
+    .market-table.list .market-item {
+      display: grid;
+      grid-template-columns: minmax(110px, 31%) minmax(0, 1fr);
+      min-height: 60px;
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .market-table.list .market-item:last-child {
+      border-bottom: 0;
+    }
+
+    .market-table.list .market-name {
+      padding: 0 12px;
+      border-right: 1px solid var(--soft-line);
+    }
+
+    .market-table.list .market-value {
+      justify-content: flex-start;
+      padding: 0 0 0 34px;
+    }
+
+    .missing {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 520px) {
+      .report {
+        width: calc(100vw - 28px);
+        margin-top: 22px;
+      }
+
+      h1 {
+        margin-bottom: 30px;
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .market-name {
+        font-size: 19px;
+      }
+
+      .market-value {
+        font-size: 16px;
+      }
+
+      .value {
+        font-size: 17px;
+      }
+
+      .market-table.grid .market-item {
+        grid-template-rows: 54px 56px;
+      }
+
+      .market-table.list .market-item {
+        grid-template-columns: minmax(96px, 31%) minmax(0, 1fr);
+        min-height: 56px;
+      }
+
+      .market-table.list .market-value {
+        padding-left: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="report">
+    <h1>전일 시장 요약</h1>
+
+    
+    <section class="market-section" aria-labelledby="section-1">
+      <h2 id="section-1">국내</h2>
+      <div class="market-table grid columns-2" style="--columns: 2">
+        
+        <article class="market-item" title="KS11 · 2026-10-21">
+          <div class="market-name">코스피</div>
+          <div class="market-value up">
+            
+            <span class="value">5,735.66</span>
+            <span aria-hidden="true">▲</span>
+            <span>3.29%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="KQ11 · 2026-10-21">
+          <div class="market-name">코스닥</div>
+          <div class="market-value up">
+            
+            <span class="value">792.76</span>
+            <span aria-hidden="true">▲</span>
+            <span>1.38%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+    <section class="market-section" aria-labelledby="section-2">
+      <h2 id="section-2">해외</h2>
+      <div class="market-table grid columns-2" style="--columns: 2">
+        
+        <article class="market-item" title="DJI · 2026-10-21">
+          <div class="market-name">다우 산업</div>
+          <div class="market-value up">
+            
+            <span class="value">52,856.09</span>
+            <span aria-hidden="true">▲</span>
+            <span>0.69%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="IXIC · 2026-10-21">
+          <div class="market-name">나스닥 종합</div>
+          <div class="market-value up">
+            
+            <span class="value">26,702.86</span>
+            <span aria-hidden="true">▲</span>
+            <span>1.05%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="SSEC · 2026-10-21">
+          <div class="market-name">상해 종합</div>
+          <div class="market-value down">
+            
+            <span class="value">3,713.03</span>
+            <span aria-hidden="true">▼</span>
+            <span>0.60%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="N225 · 2026-10-21">
+          <div class="market-name">니케이225</div>
+          <div class="market-value up">
+            
+            <span class="value">64,621.24</span>
+            <span aria-hidden="true">▲</span>
+            <span>0.85%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+    <section class="market-section" aria-labelledby="section-3">
+      <h2 id="section-3">환율</h2>
+      <div class="market-table grid columns-2" style="--columns: 2">
+        
+        <article class="market-item" title="USD/KRW · 2026-10-20">
+          <div class="market-name">원/달러</div>
+          <div class="market-value down">
+            
+            <span class="value">1,323.94</span>
+            <span aria-hidden="true">▼</span>
+            <span>0.46%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="USD/CNY · 2026-10-20">
+          <div class="market-name">중국 위안/달러</div>
+          <div class="market-value down">
+            
+            <span class="value">6.678</span>
+            <span aria-hidden="true">▼</span>
+            <span>0.19%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+    <section class="market-section" aria-labelledby="section-4">
+      <h2 id="section-4">상품</h2>
+      <div class="market-table list" style="--columns: 1">
+        
+        <article class="market-item" title="GC=F · 2026-10-21">
+          <div class="market-name">금</div>
+          <div class="market-value up">
+            
+            <span class="value">4,150.00</span>
+            <span aria-hidden="true">▲</span>
+            <span>0.18%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="SI=F · 2026-10-21">
+          <div class="market-name">은</div>
+          <div class="market-value down">
+            
+            <span class="value">57.42</span>
+            <span aria-hidden="true">▼</span>
+            <span>0.49%</span>
+            
+          </div>
+        </article>
+        
+        <article class="market-item" title="CL=F · 2026-10-21">
+          <div class="market-name">WTI</div>
+          <div class="market-value down">
+            
+            <span class="value">97.15</span>
+            <span aria-hidden="true">▼</span>
+            <span>4.56%</span>
+            
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+  </main>
+</body>
+</html>
